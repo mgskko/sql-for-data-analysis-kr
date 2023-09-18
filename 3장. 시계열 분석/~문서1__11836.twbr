@@ -1,0 +1,449 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20214.23.0807.0858                               -->
+<workbook original-version='18.1' source-build='2021.4.21 (20214.23.0807.0858)' source-platform='win' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <_.fcp.AnimationOnByDefault.true...AnimationOnByDefault />
+    <_.fcp.MarkAnimation.true...MarkAnimation />
+    <_.fcp.ObjectModelEncapsulateLegacy.true...ObjectModelEncapsulateLegacy />
+    <_.fcp.ObjectModelTableType.true...ObjectModelTableType />
+    <_.fcp.SchemaViewerObjectModel.true...SchemaViewerObjectModel />
+    <SheetIdentifierTracking />
+    <WindowsPersistSimpleIdentifiers />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <_.fcp.AnimationOnByDefault.false...style>
+    <_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule element='animation'>
+      <_.fcp.AnimationOnByDefault.false...format attr='animation-on' value='ao-on' />
+    </_.fcp.AnimationOnByDefault.false..._.fcp.MarkAnimation.true...style-rule>
+  </_.fcp.AnimationOnByDefault.false...style>
+  <datasources>
+    <datasource caption='us_retail_sales' inline='true' name='federated.1m5hcca1loug25102ulde0w97m7m' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='us_retail_sales' name='textscan.0v4b2hm11qts3d1bghx7c0ucdn2p'>
+            <connection class='textscan' directory='C:/Users/User/github/sql-for-data-analysis-kr/3장. 시계열 분석' filename='us_retail_sales.csv' password='' server='' />
+          </named-connection>
+        </named-connections>
+        <_.fcp.ObjectModelEncapsulateLegacy.false...relation connection='textscan.0v4b2hm11qts3d1bghx7c0ucdn2p' name='us_retail_sales.csv' table='[us_retail_sales#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='ko_KR' separator=','>
+            <column datatype='date' name='sales_month' ordinal='0' />
+            <column datatype='integer' name='naics_code' ordinal='1' />
+            <column datatype='string' name='kind_of_business' ordinal='2' />
+            <column datatype='string' name='reason_for_null' ordinal='3' />
+            <column datatype='integer' name='sales' ordinal='4' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.false...relation>
+        <_.fcp.ObjectModelEncapsulateLegacy.true...relation connection='textscan.0v4b2hm11qts3d1bghx7c0ucdn2p' name='us_retail_sales.csv' table='[us_retail_sales#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='ko_KR' separator=','>
+            <column datatype='date' name='sales_month' ordinal='0' />
+            <column datatype='integer' name='naics_code' ordinal='1' />
+            <column datatype='string' name='kind_of_business' ordinal='2' />
+            <column datatype='string' name='reason_for_null' ordinal='3' />
+            <column datatype='integer' name='sales' ordinal='4' />
+          </columns>
+        </_.fcp.ObjectModelEncapsulateLegacy.true...relation>
+        <metadata-records>
+          <metadata-record class='capability'>
+            <remote-name />
+            <remote-type>0</remote-type>
+            <parent-name>[us_retail_sales.csv]</parent-name>
+            <remote-alias />
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='character-set'>&quot;UTF-8&quot;</attribute>
+              <attribute datatype='string' name='collation'>&quot;ko&quot;</attribute>
+              <attribute datatype='string' name='currency'>&quot;₩&quot;</attribute>
+              <attribute datatype='string' name='debit-close-char'>&quot;&quot;</attribute>
+              <attribute datatype='string' name='debit-open-char'>&quot;&quot;</attribute>
+              <attribute datatype='string' name='field-delimiter'>&quot;,&quot;</attribute>
+              <attribute datatype='string' name='header-row'>&quot;true&quot;</attribute>
+              <attribute datatype='string' name='locale'>&quot;ko_KR&quot;</attribute>
+              <attribute datatype='string' name='single-char'>&quot;&quot;</attribute>
+            </attributes>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>sales_month</remote-name>
+            <remote-type>133</remote-type>
+            <local-name>[sales_month]</local-name>
+            <parent-name>[us_retail_sales.csv]</parent-name>
+            <remote-alias>sales_month</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[us_retail_sales.csv_1D7AB5AC254C4BFFA738BC1F8695EC5F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>naics_code</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[naics_code]</local-name>
+            <parent-name>[us_retail_sales.csv]</parent-name>
+            <remote-alias>naics_code</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[us_retail_sales.csv_1D7AB5AC254C4BFFA738BC1F8695EC5F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>kind_of_business</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[kind_of_business]</local-name>
+            <parent-name>[us_retail_sales.csv]</parent-name>
+            <remote-alias>kind_of_business</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LKO_RKR' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[us_retail_sales.csv_1D7AB5AC254C4BFFA738BC1F8695EC5F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>reason_for_null</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[reason_for_null]</local-name>
+            <parent-name>[us_retail_sales.csv]</parent-name>
+            <remote-alias>reason_for_null</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <scale>1</scale>
+            <width>1073741823</width>
+            <contains-null>true</contains-null>
+            <collation flag='0' name='LKO_RKR' />
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[us_retail_sales.csv_1D7AB5AC254C4BFFA738BC1F8695EC5F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>sales</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[sales]</local-name>
+            <parent-name>[us_retail_sales.csv]</parent-name>
+            <remote-alias>sales</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+            <_.fcp.ObjectModelEncapsulateLegacy.true...object-id>[us_retail_sales.csv_1D7AB5AC254C4BFFA738BC1F8695EC5F]</_.fcp.ObjectModelEncapsulateLegacy.true...object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <_.fcp.ObjectModelTableType.true...column caption='us_retail_sales.csv' datatype='table' name='[__tableau_internal_object_id__].[us_retail_sales.csv_1D7AB5AC254C4BFFA738BC1F8695EC5F]' role='measure' type='quantitative' />
+      <column caption='Kind Of Business' datatype='string' name='[kind_of_business]' role='dimension' type='nominal' />
+      <column caption='Naics Code' datatype='integer' name='[naics_code]' role='dimension' type='ordinal' />
+      <column caption='Reason For Null' datatype='string' name='[reason_for_null]' role='dimension' type='nominal' />
+      <column caption='Sales' datatype='integer' name='[sales]' role='measure' type='quantitative' />
+      <column caption='Sales Month' datatype='date' name='[sales_month]' role='dimension' type='ordinal' />
+      <column-instance column='[kind_of_business]' derivation='None' name='[none:kind_of_business:nk]' pivot='key' type='nominal' />
+      <layout _.fcp.SchemaViewerObjectModel.false...dim-percentage='0.5' _.fcp.SchemaViewerObjectModel.false...measure-percentage='0.4' dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:kind_of_business:nk]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;Book stores&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Women&apos;s clothing stores&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>&quot;Men&apos;s clothing stores&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Sporting goods stores&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Hobby, toy, and game stores&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;대한민국&quot;' />
+      </semantic-values>
+      <_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+        <objects>
+          <object caption='us_retail_sales.csv' id='us_retail_sales.csv_1D7AB5AC254C4BFFA738BC1F8695EC5F'>
+            <properties context=''>
+              <relation connection='textscan.0v4b2hm11qts3d1bghx7c0ucdn2p' name='us_retail_sales.csv' table='[us_retail_sales#csv]' type='table'>
+                <columns character-set='UTF-8' header='yes' locale='ko_KR' separator=','>
+                  <column datatype='date' name='sales_month' ordinal='0' />
+                  <column datatype='integer' name='naics_code' ordinal='1' />
+                  <column datatype='string' name='kind_of_business' ordinal='2' />
+                  <column datatype='string' name='reason_for_null' ordinal='3' />
+                  <column datatype='integer' name='sales' ordinal='4' />
+                </columns>
+              </relation>
+            </properties>
+          </object>
+        </objects>
+      </_.fcp.ObjectModelEncapsulateLegacy.true...object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='시트 1'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='us_retail_sales' name='federated.1m5hcca1loug25102ulde0w97m7m' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1m5hcca1loug25102ulde0w97m7m'>
+            <column caption='Kind Of Business' datatype='string' name='[kind_of_business]' role='dimension' type='nominal' />
+            <column-instance column='[kind_of_business]' derivation='None' name='[none:kind_of_business:nk]' pivot='key' type='nominal' />
+            <column caption='Sales' datatype='integer' name='[sales]' role='measure' type='quantitative' />
+            <column caption='Sales Month' datatype='date' name='[sales_month]' role='dimension' type='ordinal' />
+            <column-instance column='[sales]' derivation='Sum' name='[sum:sales:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[sales_month]' derivation='Year' name='[yr:sales_month:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:kind_of_business:nk]' member='&quot;Book stores&quot;' />
+              <groupfilter function='member' level='[none:kind_of_business:nk]' member='&quot;Hobby, toy, and game stores&quot;' />
+              <groupfilter function='member' level='[none:kind_of_business:nk]' member='&quot;Sporting goods stores&quot;' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' />
+              <lod column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1m5hcca1loug25102ulde0w97m7m].[sum:sales:qk]</rows>
+        <cols>[federated.1m5hcca1loug25102ulde0w97m7m].[yr:sales_month:ok]</cols>
+      </table>
+      <simple-id uuid='{58C6451F-F22A-419E-97F4-E8C50D445875}' />
+    </worksheet>
+    <worksheet name='시트 2'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='us_retail_sales' name='federated.1m5hcca1loug25102ulde0w97m7m' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1m5hcca1loug25102ulde0w97m7m'>
+            <column caption='Kind Of Business' datatype='string' name='[kind_of_business]' role='dimension' type='nominal' />
+            <column-instance column='[kind_of_business]' derivation='None' name='[none:kind_of_business:nk]' pivot='key' type='nominal' />
+            <column caption='Sales' datatype='integer' name='[sales]' role='measure' type='quantitative' />
+            <column caption='Sales Month' datatype='date' name='[sales_month]' role='dimension' type='ordinal' />
+            <column-instance column='[sales]' derivation='Sum' name='[sum:sales:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[sales_month]' derivation='Month-Trunc' name='[tmn:sales_month:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:kind_of_business:nk]' member='&quot;Men&apos;s clothing stores&quot;' />
+              <groupfilter function='member' level='[none:kind_of_business:nk]' member='&quot;Women&apos;s clothing stores&quot;' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' />
+              <lod column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1m5hcca1loug25102ulde0w97m7m].[sum:sales:qk]</rows>
+        <cols>[federated.1m5hcca1loug25102ulde0w97m7m].[tmn:sales_month:qk]</cols>
+      </table>
+      <simple-id uuid='{330A840B-013E-4C3C-9EC6-364B162E876A}' />
+    </worksheet>
+    <worksheet name='시트 3'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='us_retail_sales' name='federated.1m5hcca1loug25102ulde0w97m7m' />
+          </datasources>
+          <datasource-dependencies datasource='federated.1m5hcca1loug25102ulde0w97m7m'>
+            <column caption='Kind Of Business' datatype='string' name='[kind_of_business]' role='dimension' type='nominal' />
+            <column-instance column='[kind_of_business]' derivation='None' name='[none:kind_of_business:nk]' pivot='key' type='nominal' />
+            <column caption='Sales' datatype='integer' name='[sales]' role='measure' type='quantitative' />
+            <column caption='Sales Month' datatype='date' name='[sales_month]' role='dimension' type='ordinal' />
+            <column-instance column='[sales]' derivation='Sum' name='[sum:sales:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[sales_month]' derivation='Year' name='[yr:sales_month:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]'>
+            <groupfilter function='union' user:ui-domain='relevant' user:ui-enumeration='inclusive' user:ui-marker='enumerate'>
+              <groupfilter function='member' level='[none:kind_of_business:nk]' member='&quot;Men&apos;s clothing stores&quot;' />
+              <groupfilter function='member' level='[none:kind_of_business:nk]' member='&quot;Women&apos;s clothing stores&quot;' />
+            </groupfilter>
+          </filter>
+          <slices>
+            <column>[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[federated.1m5hcca1loug25102ulde0w97m7m].[sum:sales:qk]</rows>
+        <cols>[federated.1m5hcca1loug25102ulde0w97m7m].[yr:sales_month:ok]</cols>
+      </table>
+      <simple-id uuid='{27E87722-8E2A-431B-B22F-5A0731D3D080}' />
+    </worksheet>
+    <worksheet name='시트 4'>
+      <table>
+        <view>
+          <datasources />
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows />
+        <cols />
+      </table>
+      <simple-id uuid='{C6FDF844-2137-46CF-AF3F-CBECFEB238F9}' />
+    </worksheet>
+  </worksheets>
+  <windows source-height='44'>
+    <window class='worksheet' name='시트 1'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{40B14CD4-2458-4E41-BF2B-EDE753B9BEAD}' />
+    </window>
+    <window class='worksheet' name='시트 2'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{A6CEB601-1D19-4254-9DBF-6797ECE8903E}' />
+    </window>
+    <window class='worksheet' name='시트 3'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card pane-specification-id='0' param='[federated.1m5hcca1loug25102ulde0w97m7m].[none:kind_of_business:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{7476B583-6C04-41CB-9064-85A327F73B28}' />
+    </window>
+    <window class='worksheet' maximized='true' name='시트 4'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='30'>
+            <card type='columns' />
+          </strip>
+          <strip size='30'>
+            <card type='rows' />
+          </strip>
+          <strip size='30'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{7C5C160E-0698-4815-852A-CC1146A6226E}' />
+    </window>
+  </windows>
+</workbook>
