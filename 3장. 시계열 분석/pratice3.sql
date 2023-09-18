@@ -88,3 +88,79 @@ SELECT YEAR(sales_month) AS sales_year,
       AND sales_month <= '2019-12-01'
     GROUP BY 1
     ORDER BY 1;
+
+-- 두 업종의 비율
+
+
+SELECT sales_year, 
+	womens_sales / mens_sales AS womens_times_of_mens
+FROM 
+(SELECT YEAR(sales_month) AS sales_year, 
+		SUM(CASE WHEN kind_of_business = 'Women''s clothing stores' THEN sales END) AS womens_sales,
+		SUM(CASE WHEN kind_of_business = 'Men''s clothing stores' THEN sales END) AS mens_sales
+FROM US_RETAIL_SALES
+WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+      AND sales_month <= '2019-12-01'
+GROUP BY 1) AS A
+ORDER BY 1
+
+-- 두 업종의 비율 차이
+
+SELECT sales_year, 
+	(womens_sales / mens_sales - 1) * 100 AS womens_times_of_mens
+FROM 
+(SELECT YEAR(sales_month) AS sales_year, 
+		SUM(CASE WHEN kind_of_business = 'Women''s clothing stores' THEN sales END) AS womens_sales,
+		SUM(CASE WHEN kind_of_business = 'Men''s clothing stores' THEN sales END) AS mens_sales
+FROM US_RETAIL_SALES
+WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+      AND sales_month <= '2019-12-01'
+GROUP BY 1) AS A
+ORDER BY 1
+
+-- 전체 대비 비율 계산 pct_total_sales
+
+SELECT sales_month, kind_of_business, (SALES / total_sales)*100 AS pct_total_sales
+FROM 
+(SELECT A.sales_month, A.kind_of_business, A.SALES, SUM(B.SALES) AS total_sales
+FROM US_RETAIL_SALES AS A
+JOIN US_RETAIL_SALES AS B
+ON A.sales_month = B.sales_month
+WHERE A.kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+AND
+	B.kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+    GROUP BY 1,2,3
+    ) AS AA
+    ORDER BY 1,2
+
+    
+    
+-- 업종별 연 매출 대비 월간 매출 비율
+
+SELECT 
+    a.sales_month,
+    a.kind_of_business,
+    a.sales * 100 / b.yearly_sales AS pct_yearly
+FROM
+    US_RETAIL_SALES a
+JOIN (
+    SELECT 
+        YEAR(sales_month) AS sales_year,
+        kind_of_business,
+        SUM(sales) AS yearly_sales
+    FROM US_RETAIL_SALES
+    WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+    GROUP BY 1, 2
+) b ON
+    YEAR(a.sales_month) = b.sales_year
+    AND a.kind_of_business = b.kind_of_business
+WHERE a.kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+ORDER BY 1, 2;
+
+SELECT 
+        YEAR(sales_month) AS sales_year,
+        kind_of_business,
+        SUM(sales) AS yearly_sales
+    FROM US_RETAIL_SALES
+    WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+    GROUP BY 1, 2
