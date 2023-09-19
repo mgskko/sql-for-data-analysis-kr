@@ -157,10 +157,31 @@ JOIN (
 WHERE a.kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
 ORDER BY 1, 2;
 
+
+-- 2019년의 데이터 업종별 연 매출 대비 월간 매출 비율
+
 SELECT 
-        YEAR(sales_month) AS sales_year,
-        kind_of_business,
-        SUM(sales) AS yearly_sales
+    sales_year,
+    sales,
+    (SELECT sales FROM (
+        SELECT YEAR(sales_month) AS sales_year, SUM(sales) AS sales
+        FROM US_RETAIL_SALES
+        WHERE kind_of_business = 'Women''s clothing stores'
+        GROUP BY 1
+    ) a ORDER BY sales_year LIMIT 1) AS index_sales
+FROM (
+    SELECT YEAR(sales_month) AS sales_year, SUM(sales) AS sales
     FROM US_RETAIL_SALES
-    WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
-    GROUP BY 1, 2
+    WHERE kind_of_business = 'Women''s clothing stores'
+    GROUP BY 1
+) a;
+
+-- 비율 변화
+
+
+
+
+
+
+
+
