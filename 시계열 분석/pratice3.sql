@@ -178,6 +178,64 @@ FROM (
 
 -- 비율 변화
 
+SELECT 
+    sales_year,
+    sales,
+    (SELECT sales FROM (
+        SELECT YEAR(sales_month) AS sales_year, SUM(sales) AS sales
+        FROM US_RETAIL_SALES
+        WHERE kind_of_business = 'Women''s clothing stores'
+        GROUP BY 1
+    ) a ORDER BY sales_year LIMIT 1) AS index_sales
+FROM (
+    SELECT YEAR(sales_month) AS sales_year, SUM(sales) AS sales
+    FROM US_RETAIL_SALES
+    WHERE kind_of_business = 'Women''s clothing stores'
+    GROUP BY 1
+) a;
+
+
+
+-- 시간 윈도우 롤링
+
+
+SELECT a.sales_month
+     , a.sales
+     , b.sales_month AS rolling_sales_month
+     , b.sales AS rolling_sales
+FROM US_RETAIL_SALES a
+JOIN US_RETAIL_SALES b ON a.kind_of_business = b.kind_of_business 
+  AND b.sales_month BETWEEN DATE_SUB(a.sales_month, INTERVAL 11 MONTH) AND a.sales_month
+  AND b.kind_of_business = 'Women''s clothing stores'
+WHERE a.kind_of_business = 'Women''s clothing stores'
+  AND a.sales_month = '2019-12-01';
+
+
+-- 집계
+
+SELECT
+    a.sales_month,
+    a.sales,
+    AVG(b.sales) AS moving_avg,
+    COUNT(b.sales) AS records_count
+FROM
+    US_RETAIL_SALES AS a
+JOIN
+    US_RETAIL_SALES AS b ON a.kind_of_business = b.kind_of_business
+    AND b.sales_month BETWEEN DATE_SUB(a.sales_month, INTERVAL 11 MONTH) AND a.sales_month
+    AND b.kind_of_business = 'Women''s clothing stores'
+WHERE
+    a.kind_of_business = 'Women''s clothing stores'
+    AND a.sales_month >= '1993-01-01'
+GROUP BY
+    a.sales_month, a.sales
+ORDER BY
+    a.sales_month;
+
+
+
+
+
 
 
 
