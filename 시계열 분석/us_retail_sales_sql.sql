@@ -1,6 +1,6 @@
 SELECT *
 FROM us_retail_sales
-ORDER BY 5;
+limit 5;
 
 
 
@@ -9,13 +9,13 @@ FROM us_retail_sales
 WHERE kind_of_business = 'Retail and food services sales, total'
 ORDER BY 1;
 
+
 SELECT YEAR(SALES_MONTH) AS SALES_YEAR,
     SUM(SALES) AS SALES
 FROM US_RETAIL_SALES
 WHERE KIND_OF_BUSINESS = 'RETAIL AND FOOD SERVICES SALES, TOTAL'
 GROUP BY SALES_YEAR
 ORDER BY SALES_YEAR;
-
 
 SELECT YEAR(sales_month) AS sales_year,
        kind_of_business,
@@ -33,7 +33,7 @@ FROM US_RETAIL_SALES
 SELECT sales_month, kind_of_business, SALES
 FROM US_RETAIL_SALES
 WHERE kind_of_business IN ('Men''s clothing stores','Women''s clothing stores')
-ORDER BY 1, 2
+ORDER BY 1, 2;
 
 
 -- 연별 분석
@@ -43,7 +43,7 @@ SELECT YEAR(sales_month) AS sales_year, kind_of_business,
 FROM US_RETAIL_SALES
 WHERE kind_of_business IN ('Men''s clothing stores','Women''s clothing stores')
 GROUP BY 1, 2
-ORDER BY 1, 2
+ORDER BY 1, 2;
 
 
 -- 두 업종 간 매출 차이, 비율 차이 계산
@@ -63,19 +63,24 @@ ORDER BY
     
 -- 2020년 이전의 데이터만 활용(서브쿼리 사용)
 
+
 SELECT sales_year,
-       womens_sales - mens_sales AS womens_minus_mens,
-       mens_sales - womens_sales AS mens_minus_womens
-FROM (
-    SELECT YEAR(sales_month) AS sales_year,
-           SUM(CASE WHEN kind_of_business = 'Women''s clothing stores' THEN sales END) AS womens_sales,
-           SUM(CASE WHEN kind_of_business = 'Men''s clothing stores' THEN sales END) AS mens_sales
-    FROM US_RETAIL_SALES
-    WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
-      AND sales_month <= '2019-12-01'
-    GROUP BY 1
-) a
-ORDER BY 1;
+womens_sales - mens_sales,
+mens_sales - womens_sales
+FROM (SELECT
+    YEAR(sales_month) AS sales_year,
+    SUM(CASE WHEN kind_of_business = 'Women''s clothing stores' THEN sales ELSE 0 END) AS womens_sales,
+    SUM(CASE WHEN kind_of_business = 'Men''s clothing stores' THEN sales ELSE 0 END) AS mens_sales
+FROM
+    US_RETAIL_SALES
+WHERE
+    kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+GROUP BY
+    sales_year
+ORDER BY
+    sales_year) A
+    WHERE sales_year <= 2019 ;
+
 
 -- 2020년 이전의 데이터만 활용(서브쿼리 사용X)
 
@@ -102,7 +107,7 @@ FROM US_RETAIL_SALES
 WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
       AND sales_month <= '2019-12-01'
 GROUP BY 1) AS A
-ORDER BY 1
+ORDER BY 1;
 
 -- 두 업종의 비율 차이
 
@@ -116,7 +121,7 @@ FROM US_RETAIL_SALES
 WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
       AND sales_month <= '2019-12-01'
 GROUP BY 1) AS A
-ORDER BY 1
+ORDER BY 1;
 
 -- 전체 대비 비율 계산 pct_total_sales
 
@@ -131,10 +136,16 @@ AND
 	B.kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
     GROUP BY 1,2,3
     ) AS AA
-    ORDER BY 1,2
+    ORDER BY 1,2;
 
-    
-    
+
+SELECT sales_month, kind_of_business,SALES,
+SUM(SALES) OVER (partition by SALES_MONTH) AS TOTAL_SALES,
+(SALES * 100) / SUM(SALES) OVER (partition by SALES_MONTH) AS PCT_TOTAL
+FROM US_RETAIL_SALES
+WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+ORDER BY 1,2;
+
 -- 업종별 연 매출 대비 월간 매출 비율
 
 SELECT 
@@ -155,6 +166,26 @@ JOIN (
     YEAR(a.sales_month) = b.sales_year
     AND a.kind_of_business = b.kind_of_business
 WHERE a.kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+ORDER BY 1, 2;
+
+SELECT sales_month, kind_of_business, SALES,
+SUM(SALES) OVER (partition by YEAR(sales_month)) AS yearly_sales,
+
+FROM US_RETAIL_SALES;
+
+SELECT sales_month, 
+       kind_of_business, 
+       sales,
+       yearly_sales,
+       (sales * 100) / yearly_sales as yearly_sales
+FROM (
+    SELECT sales_month, 
+           kind_of_business, 
+           sales,
+           SUM(sales) OVER (PARTITION BY YEAR(sales_month), kind_of_business) AS yearly_sales
+    FROM US_RETAIL_SALES
+    WHERE kind_of_business IN ('Men''s clothing stores', 'Women''s clothing stores')
+) AS subquery
 ORDER BY 1, 2;
 
 
@@ -198,6 +229,19 @@ FROM (
 
 -- 시간 윈도우 롤링
 
+SELECT a.sales_month
+     , a.sales
+     , b.sales_month AS rolling_sales_month
+     , b.sales AS rolling_sales
+FROM US_RETAIL_SALES a
+JOIN US_RETAIL_SALES b ON a.kind_of_business = b.kind_of_business 
+  AND b.sales_month BETWEEN DATE_SUB(a.sales_month, INTERVAL 11 MONTH) 
+  AND a.sales_month
+  AND b.kind_of_business = 'Women''s clothing stores'
+WHERE a.kind_of_business = 'Women''s clothing stores'
+  AND a.sales_month = '2019-12-01';
+  
+-- 12개월치 데이터의 평균
 
 SELECT a.sales_month
      , a.sales
@@ -205,7 +249,8 @@ SELECT a.sales_month
      , b.sales AS rolling_sales
 FROM US_RETAIL_SALES a
 JOIN US_RETAIL_SALES b ON a.kind_of_business = b.kind_of_business 
-  AND b.sales_month BETWEEN DATE_SUB(a.sales_month, INTERVAL 11 MONTH) AND a.sales_month
+  AND b.sales_month BETWEEN DATE_SUB(a.sales_month, INTERVAL 11 MONTH) 
+  AND a.sales_month
   AND b.kind_of_business = 'Women''s clothing stores'
 WHERE a.kind_of_business = 'Women''s clothing stores'
   AND a.sales_month = '2019-12-01';
